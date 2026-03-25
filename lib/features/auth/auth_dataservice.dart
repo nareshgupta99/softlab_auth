@@ -82,7 +82,6 @@ extension AuthDataservice on AuthController {
       switch (result) {
         case Result.onSuccess:
           loading.value = false;
-          Get.toNamed(Routes.getVerifyOtpView());
           Get.snackbar('Success', message ?? "error");
           break;
         case Result.onFailed:

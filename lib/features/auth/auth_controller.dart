@@ -98,6 +98,7 @@ class AuthController extends GetxController implements GetxService {
       AppOverlay.showMessage(context, type: OverlayType.error, title: 'Invalid phone', message: 'Please enter a valid number.');
     } else {
       forgotPassword();
+      Get.toNamed(Routes.getVerifyOtpView());
     }
   }
 
