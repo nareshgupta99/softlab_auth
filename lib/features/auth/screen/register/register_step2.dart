@@ -83,7 +83,7 @@ class RegisterStep2 extends StatelessWidget {
           child: Row(
             children: [
               TextButton(
-                onPressed: () => Get.offNamed(Routes.getLoginView()),
+                onPressed: () =>  Navigator.pushReplacementNamed(context, MRoutes.login),
                 child: Text('Login', style: TextStyle(color: kTextDark, fontSize: 15.sp, decoration: TextDecoration.underline)),
               ),
               Expanded(

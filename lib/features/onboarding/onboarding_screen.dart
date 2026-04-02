@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:softlab_auth/constants/image_constants.dart';
 import 'package:softlab_auth/constants/keys.dart';
-import 'package:softlab_auth/features/auth/onboarding/onboarding_page.dart';
+import 'package:softlab_auth/features/onboarding/onboarding_page.dart';
 import 'package:softlab_auth/helper/routes.dart';
 import 'package:softlab_auth/utils/local_storage.dart';
 
@@ -63,11 +62,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: _pages[i]['color'],
                   onJoin: () {
                     LocalStorage.setStringData(key: Keys.isOnboardSetup, value: "true");
-                    Get.offNamed(Routes.getRegisterStep1());
+                    Navigator.pushReplacementNamed(context, MRoutes.registerStep1);
                   },
                   login: () {
                     LocalStorage.setStringData(key: Keys.isOnboardSetup, value: "true");
-                    Get.offNamed(Routes.getLoginView());
+                    Navigator.pushReplacementNamed(context, MRoutes.login);
                   },
                 ),
           ),

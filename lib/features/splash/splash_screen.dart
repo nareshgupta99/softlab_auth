@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:softlab_auth/constants/keys.dart';
 import 'package:softlab_auth/helper/routes.dart';
 import 'package:softlab_auth/utils/local_storage.dart';
@@ -63,10 +62,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     ).animate(CurvedAnimation(parent: _taglineController, curve: Curves.easeOut));
 
     // Staggered sequence
-    _startAnimations();
+    _startAnimations(context);
   }
 
-  Future<void> _startAnimations() async {
+  Future<void> _startAnimations(final context) async {
     await Future.delayed(const Duration(milliseconds: 200));
     _leafController.forward();
 
@@ -79,11 +78,13 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     // Navigate after splash
     await Future.delayed(const Duration(milliseconds: 1800));
 
+    if (!mounted) return;
+
     String? isOnboardSetup = await LocalStorage.getStringData(key: Keys.isOnboardSetup);
     if (isOnboardSetup == "true") {
-      Get.offAllNamed(Routes.getRegisterStep1());
+      Navigator.pushReplacementNamed(context, MRoutes.registerStep1);
     } else {
-      Get.offAllNamed(Routes.getOnboardingScreen());
+      Navigator.pushReplacementNamed(context, MRoutes.onboarding);
     }
   }
 

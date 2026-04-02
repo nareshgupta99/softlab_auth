@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:softlab_auth/helper/object_factory.dart';
 import 'package:softlab_auth/helper/routes.dart';
 
@@ -23,11 +22,11 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const ui.Size(375, 812),
       builder: (context, child) {
-        return GetMaterialApp(
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: 'sans-serif'),
-          initialRoute: Routes.getSplashView(),
-          getPages: Routes.routes,
+          initialRoute: MRoutes.splash,
+          routes: MRoutes.getRoutes(),
         );
       },
     );

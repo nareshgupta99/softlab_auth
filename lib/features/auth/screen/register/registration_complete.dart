@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:softlab_auth/components/buttons.dart';
 import 'package:softlab_auth/helper/routes.dart';
 
@@ -50,7 +49,7 @@ class RegistrationComplete extends StatelessWidget {
                 child: customButton(
                   text: 'Got it!',
                   onPressed: () {
-                    Get.offAllNamed(Routes.getLoginView());
+                    Navigator.pushReplacementNamed(context, MRoutes.login);
                   },
                   color: kPrimary,
                 ),
