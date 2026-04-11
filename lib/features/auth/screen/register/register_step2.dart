@@ -18,6 +18,14 @@ class RegisterStep2 extends StatelessWidget {
   FocusNode streetAddressFocus = FocusNode();
   FocusNode cityFocus = FocusNode();
   FocusNode zipCodeFocus = FocusNode();
+
+    
+  TextEditingController businessNamecontroller = TextEditingController();
+  TextEditingController informalNameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController zipcodeController = TextEditingController();
   static const _states = [
     'AL',
     'AK',

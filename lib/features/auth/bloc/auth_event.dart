@@ -8,3 +8,5 @@ class LoginSubmittedEvent extends AuthEvent {
   final String password;
   LoginSubmittedEvent(this.email, this.password);
 }
+
+

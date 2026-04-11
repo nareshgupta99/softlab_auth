@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
 import 'package:softlab_auth/network/model/register_model.dart';
 import 'package:softlab_auth/network/network_endpoint.dart';
 import 'package:softlab_auth/network/network_exception.dart';
@@ -9,7 +8,7 @@ import 'package:softlab_auth/network/network_manager.dart';
 import 'package:softlab_auth/network/request/network_payload.dart';
 import 'package:softlab_auth/network/request/network_request.dart';
 
-class AuthRepository extends GetxController implements GetxService {
+class AuthRepository {
   final NetworkManager network;
   AuthRepository({required this.network});
 

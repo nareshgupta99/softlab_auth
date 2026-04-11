@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (errors.isNotEmpty) {
         final firstKey = errors.keys.first;
         final firstError = errors[firstKey]!;
-        emit(AuthValidationError(errorTitle: firstKey == 'email' ? 'Invalid Email' : 'Invalid Password', error: firstError));
+        emit(AuthValidationError(errorTitle: firstKey , error: firstError));
         return;
       }
       emit(AuthSuccess());

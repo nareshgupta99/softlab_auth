@@ -15,32 +15,19 @@ class AuthController extends GetxController implements GetxService {
   Rx<String?> state = Rx<String?>(null);
   Rx<Map<String, List<String>>> businessHours = Rx<Map<String, List<String>>>({});
   //text Editing controller
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController cPasswordcontroller = TextEditingController();
-  TextEditingController businessNamecontroller = TextEditingController();
-  TextEditingController informalNameController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController stateController = TextEditingController();
-  TextEditingController zipcodeController = TextEditingController();
+  // TextEditingController nameController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController phoneController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
+  // TextEditingController cPasswordcontroller = TextEditingController();
+  // TextEditingController businessNamecontroller = TextEditingController();
+  // TextEditingController informalNameController = TextEditingController();
+  // TextEditingController addressController = TextEditingController();
+  // TextEditingController cityController = TextEditingController();
+  // TextEditingController stateController = TextEditingController();
+  // TextEditingController zipcodeController = TextEditingController();
 
-  reset() {
-    nameController.text = "";
-    emailController.text = "";
-    phoneController.text = "";
-    passwordController.text = "";
-    cPasswordcontroller.text = "";
-    businessNamecontroller.text = "";
-    informalNameController.text = "";
-    addressController.text = "";
-    cityController.text = "";
-    stateController.text = "";
-    zipcodeController.text = "";
-  }
-
+  
   void registerWithValidation(int step, BuildContext context) {
     switch (step) {
       case 1:
