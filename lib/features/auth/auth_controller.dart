@@ -1,12 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:softlab_auth/features/auth/auth_dataservice.dart';
 import 'package:softlab_auth/features/auth/auth_repository.dart';
 import 'package:softlab_auth/helper/routes.dart';
+import 'package:softlab_auth/network/request/network_request.dart';
 import 'package:softlab_auth/utils/app_overlay.dart';
 
 class AuthController extends GetxController implements GetxService {
   final AuthRepository repository;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn.instance;
 
   AuthController({required this.repository});
 
@@ -89,7 +95,12 @@ class AuthController extends GetxController implements GetxService {
     } else if (passwordController.text.isEmpty) {
       AppOverlay.showMessage(context, type: OverlayType.error, title: 'Invalid password', message: 'Please enter a valid password.');
     } else {
-      login("email");
+      AuthRequest authPayload = AuthRequest();
+      authPayload.email = emailController.text;
+      authPayload.password = passwordController.text;
+      authPayload.role = "farmer";
+      authPayload.socialId = "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx";
+      login("email", authPayload);
     }
   }
 
@@ -108,5 +119,54 @@ class AuthController extends GetxController implements GetxService {
 
   void removeFile() {
     registrationProof.value = "";
+  }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount account = await GoogleSignIn.instance.authenticate();
+      final GoogleSignInAuthentication auth = account.authentication;
+      final OAuthCredential credential = GoogleAuthProvider.credential(idToken: auth.idToken);
+      final credentail = await FirebaseAuth.instance.signInWithCredential(credential);
+      final user = credentail.user;
+      AuthRequest authPayload = AuthRequest();
+      authPayload.email = user?.email;
+      authPayload.role = "farmer";
+      authPayload.socialId = user?.providerData.first.uid;
+      login("google", authPayload);
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        print("User cancelled login $e");
+      } else {
+        print("Google error: ${e.code} - ${e.description}");
+      }
+      return;
+    } catch (e) {
+      print('Error: $e');
+      return;
+    }
+  }
+
+  Future<void> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login(permissions: ['email', 'public_profile']);
+
+      if (result.status == LoginStatus.success) {
+        final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken!.tokenString);
+
+        final credentail = await FirebaseAuth.instance.signInWithCredential(credential);
+        final user = credentail.user;
+        final userData = await FacebookAuth.instance.getUserData();
+
+        AuthRequest authPayload = AuthRequest();
+        authPayload.email = user?.email ?? userData['email'];
+        authPayload.role = "farmer";
+        authPayload.socialId = user?.providerData.first.uid;
+        login("facebook", authPayload);
+      } else {
+        print("Facebook login failed: ${result.status}");
+      }
+    } catch (e) {
+      print("Facebook error: $e");
+    }
   }
 }

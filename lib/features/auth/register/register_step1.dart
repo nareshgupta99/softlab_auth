@@ -125,9 +125,19 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SocialButton(imageUrl: Images.google, onTap: () {}),
+                    SocialButton(
+                      imageUrl: Images.google,
+                      onTap: () async {
+                        await authController.signInWithGoogle();
+                      },
+                    ),
                     SizedBox(width: 16.h),
-                    SocialButton(imageUrl: Images.facebook, onTap: () {}),
+                    SocialButton(
+                      imageUrl: Images.facebook,
+                      onTap: () async {
+                        await authController.signInWithFacebook();
+                      },
+                    ),
                     SizedBox(width: 16.h),
                     SocialButton(imageUrl: Images.apple, onTap: () {}),
                   ],

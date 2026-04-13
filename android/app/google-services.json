@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "318698652084",
+    "project_id": "softlab-3cf4b",
+    "storage_bucket": "softlab-3cf4b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318698652084:android:5520860d6b9735ce4672e1",
+        "android_client_info": {
+          "package_name": "com.softlab.softlab_auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318698652084-jlc960g4qi73fgtm12vm3l99qpeet17t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6FIQOmOVWgW7SsRWU4NoZrH6OBvfD1Z0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318698652084-jlc960g4qi73fgtm12vm3l99qpeet17t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

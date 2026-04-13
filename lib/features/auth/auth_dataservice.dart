@@ -47,15 +47,12 @@ extension AuthDataservice on AuthController {
     });
   }
 
-  Future<void> login(String type) async {
+  Future<void> login(String type,AuthRequest authPayload) async {
     loading.value = true;
-    AuthRequest authPayload = AuthRequest();
-    authPayload.email = emailController.text;
-    authPayload.password = passwordController.text;
-    authPayload.role = "farmer";
-    authPayload.deviceToken = await DeviceUtils.getDeviceId();
     authPayload.type = type;
-    authPayload.socialId = "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx";
+
+    
+    authPayload.deviceToken = await DeviceUtils.getDeviceId();
     await repository.login(authPayload, (result, response, message) {
       switch (result) {
         case Result.onSuccess:
