@@ -1,8 +1,8 @@
 part of 'register_bloc.dart';
 
 // @immutable
-// sealed class RegisterState {}
-class RegisterState {
+sealed class UserRegisterState {}
+class RegisterState extends UserRegisterState  {
   final int currentStep;
 
   final String fullName;
@@ -80,4 +80,21 @@ class RegisterState {
       isSuccess: isSuccess ?? this.isSuccess,
     );
   }
+}
+
+
+class RegistrationSuccess extends UserRegisterState {
+  final String message;
+  RegistrationSuccess(this.message);
+}
+
+class RegistrationFailure extends UserRegisterState {
+  final String error;
+  RegistrationFailure(this.error);
+}
+
+class RegistrationValidationError extends UserRegisterState {
+  final String error;
+  final String errorTitle;
+  RegistrationValidationError({required this.error, required this.errorTitle});
 }

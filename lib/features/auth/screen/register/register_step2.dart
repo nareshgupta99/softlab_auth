@@ -6,7 +6,7 @@ import 'package:softlab_auth/components/app_bar.dart';
 import 'package:softlab_auth/components/buttons.dart';
 import 'package:softlab_auth/components/drop_down.dart';
 import 'package:softlab_auth/components/input_fields.dart';
-import 'package:softlab_auth/features/auth/bloc/register_bloc/bloc/register_bloc.dart';
+import 'package:softlab_auth/features/auth/bloc/register_bloc/register_bloc.dart';
 import 'package:softlab_auth/helper/routes.dart';
 
 class RegisterStep2 extends StatefulWidget {
@@ -95,7 +95,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterBloc, RegisterState>(
+    return BlocConsumer<RegisterBloc, UserRegisterState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(

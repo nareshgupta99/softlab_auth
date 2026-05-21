@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:softlab_auth/components/app_bar.dart';
 import 'package:softlab_auth/components/buttons.dart';
-import 'package:softlab_auth/features/auth/bloc/register_bloc/bloc/register_bloc.dart';
+import 'package:softlab_auth/features/auth/bloc/register_bloc/register_bloc.dart';
 
 class RegisterStep4 extends StatefulWidget {
   const RegisterStep4({super.key});
@@ -56,7 +56,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterBloc, RegisterState>(
+    return BlocConsumer<RegisterBloc, UserRegisterState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(

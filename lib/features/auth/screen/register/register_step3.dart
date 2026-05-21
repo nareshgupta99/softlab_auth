@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softlab_auth/components/app_bar.dart';
 import 'package:softlab_auth/components/buttons.dart';
-import 'package:softlab_auth/features/auth/bloc/register_bloc/bloc/register_bloc.dart';
+import 'package:softlab_auth/features/auth/bloc/register_bloc/register_bloc.dart';
 
 class RegisterStep3 extends StatefulWidget {
   const RegisterStep3({super.key});
@@ -20,7 +20,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterBloc, RegisterState>(
+    return BlocConsumer<RegisterBloc, UserRegisterState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
