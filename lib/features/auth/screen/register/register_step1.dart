@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:softlab_auth/components/app_bar.dart';
 import 'package:softlab_auth/components/buttons.dart';
 import 'package:softlab_auth/components/input_fields.dart';
 import 'package:softlab_auth/constants/image_constants.dart';
-import 'package:softlab_auth/features/auth/auth_controller.dart';
-import 'package:softlab_auth/features/auth/bloc/auth_bloc.dart';
+import 'package:softlab_auth/features/auth/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:softlab_auth/helper/routes.dart';
 
 class RegisterStep1 extends StatefulWidget {
@@ -26,13 +24,11 @@ class _RegisterStep1State extends State<RegisterStep1> {
   FocusNode phoneFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
   FocusNode confirmPasswordFocus = FocusNode();
-  AuthController authController = Get.find<AuthController>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController cPasswordcontroller = TextEditingController();
-  AuthBloc authBloc = AuthBloc();
 
   @override
   void dispose() {
@@ -51,10 +47,9 @@ class _RegisterStep1State extends State<RegisterStep1> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
-
-      },
+    return BlocConsumer<RegisterBloc, RegisterState>(
+      bloc: context.read<RegisterBloc>(),
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           bottomNavigationBar: SafeArea(
@@ -68,7 +63,18 @@ class _RegisterStep1State extends State<RegisterStep1> {
                   ),
                   Expanded(
                     child: customButton(
-                      onPressed: () => authController.registerWithValidation(1, context),
+                      onPressed: () {
+                        context.read<RegisterBloc>().add(
+                          UpdatePersonalInfo(
+                            fullName: nameController.text,
+                            phone: phoneController.text,
+                            email: emailController.text,
+                            password: passwordController.text,
+                            cpassword: cPasswordcontroller.text,
+                          ),
+                        );
+                        context.read<RegisterBloc>().add(NextStep());
+                      },
                       text: "Continue",
                       color: Color(0xFFCD6B5A),
                     ),

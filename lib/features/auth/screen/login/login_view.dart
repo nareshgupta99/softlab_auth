@@ -2,14 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:softlab_auth/components/buttons.dart';
 import 'package:softlab_auth/components/input_fields.dart';
 import 'package:softlab_auth/constants/image_constants.dart';
-import 'package:softlab_auth/features/auth/bloc/auth_bloc.dart';
+import 'package:softlab_auth/features/auth/bloc/auth_bloc/auth_bloc.dart';
 import 'package:softlab_auth/helper/routes.dart';
 import 'package:softlab_auth/utils/app_overlay.dart';
+import 'package:softlab_auth/utils/device_utils.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -20,17 +20,28 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   FocusNode emailFocus = FocusNode();
-
   FocusNode passwordFocus = FocusNode();
+  String deviceToken = "";
+  @override
+  void initState() {
+    super.initState();
+    _initDeviceToken();
+  }
+
+  void _initDeviceToken() async {
+    deviceToken = await DeviceUtils.getDeviceId();
+  }
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final role = "farmer";
+  String type = "email";
+  final socialId = "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx";
   AuthBloc authBloc = AuthBloc();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-      bloc: authBloc,
       buildWhen: (previous, current) {
         return current is AuthLoading || current is AuthFailure;
       },
@@ -95,7 +106,7 @@ class _LoginViewState extends State<LoginView> {
                             recognizer:
                                 TapGestureRecognizer()
                                   ..onTap = () {
-                                    Get.offNamed(Routes.getRegisterStep1());
+                                    Navigator.pushReplacementNamed(context, MRoutes.registerStep1);
                                   },
                           ),
                         ],
@@ -108,7 +119,7 @@ class _LoginViewState extends State<LoginView> {
                     CustomTextFieldWithSuffixText(
                       suffixText: "Forgot?",
                       onTapSuffix: () {
-                        Get.toNamed(Routes.getSendOtp());
+                        Navigator.pushNamed(context, MRoutes.sendOtp);
                       },
                       controller: passwordController,
                       prefixIcon: Icons.lock_outline,
@@ -118,7 +129,16 @@ class _LoginViewState extends State<LoginView> {
                     SizedBox(height: 40.h),
                     customButton(
                       onPressed: () {
-                        authBloc.add(LoginSubmittedEvent(emailController.text, passwordController.text));
+                        authBloc.add(
+                          LoginSubmittedEvent(
+                            email: emailController.text,
+                            password: passwordController.text,
+                            deviceToken: deviceToken,
+                            role: role,
+                            socialId: socialId,
+                            type: type,
+                          ),
+                        );
                       },
                       text: "Login",
                       color: Color(0xffd4705b),

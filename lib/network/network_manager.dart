@@ -1,16 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:softlab_auth/constants/app_constant.dart';
 import 'package:softlab_auth/constants/keys.dart';
-import 'package:softlab_auth/utils/local_storage.dart';
 import 'package:softlab_auth/network/network_endpoint.dart';
 import 'package:softlab_auth/network/network_exception.dart';
 import 'package:softlab_auth/network/network_resources.dart';
+import 'package:softlab_auth/utils/local_storage.dart';
 
-class NetworkManager extends GetxService {
+class NetworkManager {
   final int _timeoutInSeconds = 60;
   Map<String, String> _requestCurl = {};
   final _baseURL = AppConstant.baseUrl;
@@ -85,7 +84,6 @@ class NetworkManager extends GetxService {
       }
       jsonResponse = decodeHTTPResponseBody(httpResponse: httpResponse, endpoint: endpointRawValues[endpoint]!);
     } on SocketException {
-      Get.snackbar("error", "No Internet! please try again");
       throw FetchNetworkException(exceptionRawValues[Exceptions.timedOutOrNoInternet]);
     }
     return jsonResponse;
@@ -147,7 +145,6 @@ class NetworkManager extends GetxService {
         final body = httpResponse.body;
         final decoded = jsonDecode(body);
         final message = decoded['message'] ?? 'Unauthorized access';
-        Get.snackbar("error", message);
         throw FetchNetworkException(exceptionRawValues[Exceptions.requestNotFound404]);
       case (405):
         throw FetchNetworkException(exceptionRawValues[Exceptions.methodNotAllowd405]);

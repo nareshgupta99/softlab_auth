@@ -3,12 +3,10 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:softlab_auth/helper/object_factory.dart';
 import 'package:softlab_auth/helper/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init();
   runApp(MyApp());
 }
 

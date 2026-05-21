@@ -45,7 +45,7 @@ class RegistrationComplete extends StatelessWidget {
               const Spacer(),
 
               SizedBox(
-                width: double.infinity,
+                width: double.infinity, 
                 child: customButton(
                   text: 'Got it!',
                   onPressed: () {
